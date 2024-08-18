@@ -18,28 +18,20 @@ function App() {
   });
 
   useEffect(() => {
-    // this will be called 
-    console.log("lcoal storage upadte logic  called");
-    if (txns.length > 0) localStorage.setItem("txns", JSON.stringify(txns));
-    let temp = 0;
-    for(let i=0; i<txns.length; i++){
-      temp += Number(txns[i].price);
+    // this will be called
+    if (txns.length > 0) {
+      localStorage.setItem("txns", JSON.stringify(txns));
+      setTotal(txns.reduce((a, c) => Number(a) + Number(c.price), 0));
     }
-    setTotal(temp);
   }, [txns]);
 
   useEffect(() => {
-    // api call
     const oldTxn = localStorage.getItem("txns");
     if (oldTxn) {
-      // pai hai
-      setTxns(JSON.parse(oldTxn));
+      const tx = JSON.parse(oldTxn);
+      setTxns(tx);
     }
-    console.log("useeffect 2");
-
   }, []);
-
-  console.log("rerenderd");
 
   const handleChange = (e) => {
     setFormData((prev) => {
@@ -50,9 +42,7 @@ function App() {
     });
   };
 
-  const logx = () => {
-    console.log(x);
-  };
+  const logx = () => {};
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,9 +58,7 @@ function App() {
 
   return (
     <main>
-      <h1 >
-        Total : {total}
-      </h1>
+      <h1>Total : {total}</h1>
       <form onSubmit={handleSubmit}>
         <div className="basic">
           <input
