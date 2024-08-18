@@ -14,7 +14,7 @@ function App() {
         </div>
         <button type="submit">Add new transaction</button>
       </form>
-      <div className="transaction">
+      <div className="transactions">
         <div className="transaction">
           <div className="left">
             <div className="name">New Samsung TV</div>
