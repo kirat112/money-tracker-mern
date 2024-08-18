@@ -9,6 +9,7 @@ function App() {
   const xr = useRef(1); // no renreder ' but bhulda ni
 
   const [txns, setTxns] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const [formData, setFormData] = useState({
     price: "",
@@ -17,9 +18,14 @@ function App() {
   });
 
   useEffect(() => {
-    // backenf upadte logic
+    // this will be called 
     console.log("lcoal storage upadte logic  called");
     if (txns.length > 0) localStorage.setItem("txns", JSON.stringify(txns));
+    let temp = 0;
+    for(let i=0; i<txns.length; i++){
+      temp += Number(txns[i].price);
+    }
+    setTotal(temp);
   }, [txns]);
 
   useEffect(() => {
@@ -29,6 +35,8 @@ function App() {
       // pai hai
       setTxns(JSON.parse(oldTxn));
     }
+    console.log("useeffect 2");
+
   }, []);
 
   console.log("rerenderd");
@@ -60,8 +68,8 @@ function App() {
 
   return (
     <main>
-      <h1>
-        $400<span>.00</span>
+      <h1 >
+        Total : {total}
       </h1>
       <form onSubmit={handleSubmit}>
         <div className="basic">
